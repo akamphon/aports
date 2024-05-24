@@ -1,0 +1,30 @@
+# Contributor: Jakub Jirutka <jakub@jirutka.cz>
+# Maintainer: Jakub Jirutka <jakub@jirutka.cz>
+pkgname=tex-gyre-math-fonts
+pkgver=2.501
+pkgrel=2
+pkgdesc="Math Companions for TeX Gyre fonts in OpenType format"
+url="http://www.gust.org.pl/projects/e-foundry/tex-gyre"
+arch="noarch"
+license="MIT"
+source='https://www.gust.org.pl/projects/e-foundry/tg-math/download/texgyrebonum-math-1005.zip
+        https://www.gust.org.pl/projects/e-foundry/tg-math/download/texgyrepagella-math-1632.zip
+        https://www.gust.org.pl/projects/e-foundry/tg-math/download/texgyreschola-math-1533.zip
+        https://www.gust.org.pl/projects/e-foundry/tg-math/download/texgyretermes-math-1543.zip'
+options="!check"  # no tests for shared lib
+
+package() {
+	cd $srcdir
+	install -m755 -d "${pkgdir}/usr/share/fonts/${pkgname%-fonts}"
+  	install -m644 -t "${pkgdir}/usr/share/fonts/${pkgname%-fonts}" \
+                   "${srcdir}/texgyrebonum-math-1005/opentype/texgyrebonum-math.otf" \
+                   "${srcdir}/texgyrepagella-math-1632/opentype/texgyrepagella-math.otf" \
+                   "${srcdir}/texgyreschola-math-1533/opentype/texgyreschola-math.otf" \
+                   "${srcdir}/texgyretermes-math-1543/opentype/texgyretermes-math.otf"
+}
+sha512sums="
+b8e9f90f7e450e157dac48aa5e65e7438a8d7d2b5cad4f1016547c59792e83e4b2b92b21bd7d8a63a019149c7b51feb2952f27dbbd7b9bbc98512f14174ce1d4  texgyrebonum-math-1005.zip
+4898009a4b8098f394463dfbaf25bfba8e9464f7db2c28db95aa254e2604970e88d59051eff6bc5da6b0dff6171febe3832938f7748c6ae437122a95c684cf93  texgyrepagella-math-1632.zip
+fcabc0e1a93ec948ea7c5aff281a39e63feb0847a7ceee840332b17bdcab736be68a160b2f8ca73e0734dce797514daa545d62d7455cf74e74b60f05951e51a2  texgyreschola-math-1533.zip
+df472b7939beb919950a0df060c53f621a25bd71d1b15ada3048521cb7d40efd65f26a89acceb83a7dc090c048cc7133f4e23ba0daf3037e67f6f7695c4ca990  texgyretermes-math-1543.zip
+"

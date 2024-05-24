@@ -1,0 +1,26 @@
+# Contributor: Jakub Jirutka <jakub@jirutka.cz>
+# Maintainer: Jakub Jirutka <jakub@jirutka.cz>
+pkgname=tree-sitter-typst
+pkgver=20240523
+_commit=3924cb9ed9e0e62ce7df9c4fe0faa4c234795999
+pkgrel=0
+pkgdesc="Typst grammar for tree-sitter"
+url="https://github.com/uben0/tree-sitter-typst"
+arch="all"
+license="MIT"
+makedepends="tree-sitter-dev"
+install_if="tree-sitter-grammars"
+source="https://github.com/uben0/tree-sitter-typst/archive/$_commit/$pkgname-$_commit.tar.gz"
+options="!check"  # no tests for shared lib
+
+build() {
+	cd $srcdir/$pkgname-$_commit
+	abuild-tree-sitter build
+}
+package() {
+	DESTDIR="$pkgdir" abuild-tree-sitter install -s $PWD/src/$pkgname-$_commit/src -q $PWD/queries/typst
+	# install -D -m755 -t $pkgdir/usr/lib/libtree-sitter-typst.so
+}
+sha512sums="
+ee8d461814e33401a03b0d9ffaab6a9065f311fd377c27d8836f2a4ea9af791531c1446ae070268ba9c77b3e29d270fed8af2066f214bc816f2ebc7318a4514e  tree-sitter-typst-3924cb9ed9e0e62ce7df9c4fe0faa4c234795999.tar.gz
+"
